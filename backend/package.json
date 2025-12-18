@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "build": "npx nest build"
+    "build": "nest build || npx -y @nestjs/cli build"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
