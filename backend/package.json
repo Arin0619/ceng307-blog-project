@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "build": "nest build || npx -y @nestjs/cli build"
+    "build": "nest build"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -14,6 +14,8 @@
     "@nestjs/typeorm": "^10.0.0",
     "@nestjs/jwt": "^10.0.0",
     "@nestjs/passport": "^10.0.0",
+    "@nestjs/cli": "^10.0.0",
+
     "typeorm": "^0.3.17",
     "sqlite3": "^5.1.6",
     "passport": "^0.6.0",
@@ -25,7 +27,6 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
   }
