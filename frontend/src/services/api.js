@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'ceng307-blog-project-production.up.railway.app';
+const API_URL = 'ceng307-blog-project-production.up.railway.app/api';
 
 // Axios instance oluştur
 const api = axios.create({
