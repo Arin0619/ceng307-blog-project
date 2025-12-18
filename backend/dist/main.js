@@ -11,9 +11,9 @@ async function bootstrap() {
     });
     app.useGlobalPipes(new common_1.ValidationPipe());
     app.setGlobalPrefix('api');
-    await app.listen(5000);
-    console.log('🚀 Backend is running on http://localhost:5000');
-    console.log('📚 API Endpoints: http://localhost:5000/api');
+    const port = process.env.PORT || 5000;
+    await app.listen(port);
+    console.log(`🚀 Backend is running on port ${port}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
