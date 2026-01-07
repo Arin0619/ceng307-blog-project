@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Category } from './category.entity';
 import { Comment } from './comment.entity';
@@ -26,7 +26,6 @@ export class Post {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  // Yazının yazarı (teacher)
   @ManyToOne(() => User, user => user.posts)
   @JoinColumn({ name: 'authorId' })
   author: User;
@@ -34,7 +33,6 @@ export class Post {
   @Column()
   authorId: number;
 
-  // Yazının kategorisi
   @ManyToOne(() => Category, category => category.posts)
   @JoinColumn({ name: 'categoryId' })
   category: Category;
@@ -42,7 +40,10 @@ export class Post {
   @Column()
   categoryId: number;
 
-  // Yazıya yapılan yorumlar
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[];
+
+  // ✨ YENİ: Çoka-çok ilişki - Bu yazıyı beğenen kullanıcılar
+  @ManyToMany(() => User, user => user.likedPosts)
+  likedByUsers: User[];
 }

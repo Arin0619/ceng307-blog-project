@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { Post } from './post.entity';
 import { Comment } from './comment.entity';
 
@@ -16,17 +16,24 @@ export class User {
   @Column()
   name: string;
 
-  @Column({ default: 'student' }) // 'student' veya 'teacher'
+  @Column({ default: 'student' })
   role: string;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  // Kullanıcının yazdığı yazılar (sadece teacher için)
   @OneToMany(() => Post, post => post.author)
   posts: Post[];
 
-  // Kullanıcının yaptığı yorumlar
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];
+
+  // ✨ YENİ: Çoka-çok ilişki - Beğenilen yazılar
+  @ManyToMany(() => Post, post => post.likedByUsers)
+  @JoinTable({
+    name: 'user_liked_posts', // Ara tablo adı
+    joinColumn: { name: 'userId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'postId', referencedColumnName: 'id' }
+  })
+  likedPosts: Post[];
 }
