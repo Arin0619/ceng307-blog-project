@@ -15,7 +15,6 @@ export class Category {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  // Bu kategorideki yazılar
   @OneToMany(() => Post, post => post.category)
   posts: Post[];
 }

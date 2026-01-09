@@ -28,10 +28,9 @@ export class User {
   @OneToMany(() => Comment, comment => comment.user)
   comments: Comment[];
 
-  // ✨ YENİ: Çoka-çok ilişki - Beğenilen yazılar
   @ManyToMany(() => Post, post => post.likedByUsers)
   @JoinTable({
-    name: 'user_liked_posts', // Ara tablo adı
+    name: 'user_liked_posts', 
     joinColumn: { name: 'userId', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'postId', referencedColumnName: 'id' }
   })

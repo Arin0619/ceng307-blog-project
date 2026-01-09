@@ -11,7 +11,7 @@ export class CategoryController {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  // Tüm kategorileri getir (herkes görebilir)
+
   @Get()
   async getAllCategories() {
     const categories = await this.categoryRepository.find({
@@ -20,7 +20,7 @@ export class CategoryController {
     return categories;
   }
 
-  // Tek bir kategoriyi getir
+
   @Get(':id')
   async getCategory(@Param('id') id: number) {
     const category = await this.categoryRepository.findOne({
@@ -35,11 +35,11 @@ export class CategoryController {
     return category;
   }
 
-  // Yeni kategori oluştur (sadece teacher)
+
   @Post()
   @UseGuards(JwtAuthGuard)
   async createCategory(@Request() req, @Body() body: { name: string; description?: string }) {
-    // Sadece teacher kategori oluşturabilir
+    
     if (req.user.role !== 'teacher') {
       throw new HttpException('Only teachers can create categories', HttpStatus.FORBIDDEN);
     }
@@ -57,7 +57,7 @@ export class CategoryController {
     };
   }
 
-  // Kategoriyi güncelle (sadece teacher)
+
   @Put(':id')
   @UseGuards(JwtAuthGuard)
   async updateCategory(@Request() req, @Param('id') id: number, @Body() body: { name?: string; description?: string }) {
@@ -82,7 +82,7 @@ export class CategoryController {
     };
   }
 
-  // Kategoriyi sil (sadece teacher)
+  
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async deleteCategory(@Request() req, @Param('id') id: number) {

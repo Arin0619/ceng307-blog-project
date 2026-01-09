@@ -11,7 +11,7 @@ export class CommentController {
     private commentRepository: Repository<Comment>,
   ) {}
 
-  // Belirli bir yazının yorumlarını getir
+
   @Get('post/:postId')
   async getCommentsByPost(@Param('postId') postId: number) {
     const comments = await this.commentRepository.find({
@@ -22,7 +22,7 @@ export class CommentController {
     return comments;
   }
 
-  // Yeni yorum ekle (giriş yapanlar)
+
   @Post()
   @UseGuards(JwtAuthGuard)
   async createComment(@Request() req, @Body() body: { content: string; postId: number }) {
@@ -40,7 +40,7 @@ export class CommentController {
     };
   }
 
-  // Yorumu sil (sadece yorum sahibi veya teacher)
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Request() req, @Param('id') id: number) {
@@ -50,7 +50,7 @@ export class CommentController {
       throw new HttpException('Comment not found', HttpStatus.NOT_FOUND);
     }
 
-    // Sadece yorum sahibi veya teacher silebilir
+    
     if (comment.userId !== req.user.id && req.user.role !== 'teacher') {
       throw new HttpException('You can only delete your own comments', HttpStatus.FORBIDDEN);
     }

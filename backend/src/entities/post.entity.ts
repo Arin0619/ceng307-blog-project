@@ -43,7 +43,6 @@ export class Post {
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[];
 
-  // ✨ YENİ: Çoka-çok ilişki - Bu yazıyı beğenen kullanıcılar
   @ManyToMany(() => User, user => user.likedPosts)
   likedByUsers: User[];
 }

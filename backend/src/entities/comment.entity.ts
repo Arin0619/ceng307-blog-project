@@ -13,7 +13,6 @@ export class Comment {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  // Yorumu yapan kullanıcı
   @ManyToOne(() => User, user => user.comments)
   @JoinColumn({ name: 'userId' })
   user: User;
@@ -21,7 +20,6 @@ export class Comment {
   @Column()
   userId: number;
 
-  // Yorumun yapıldığı yazı
   @ManyToOne(() => Post, post => post.comments)
   @JoinColumn({ name: 'postId' })
   post: Post;

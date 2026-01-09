@@ -11,7 +11,7 @@ export class PostController {
     private postRepository: Repository<PostEntity>,
   ) {}
 
-  // Tüm yazıları getir (herkes görebilir)
+  
   @Get()
   async getAllPosts() {
     const posts = await this.postRepository.find({
@@ -21,7 +21,7 @@ export class PostController {
     return posts;
   }
 
-  // Tek bir yazıyı getir
+
   @Get(':id')
   async getPost(@Param('id') id: number) {
     const post = await this.postRepository.findOne({
@@ -36,11 +36,11 @@ export class PostController {
     return post;
   }
 
-  // Yeni yazı oluştur (sadece teacher)
+
   @Post()
   @UseGuards(JwtAuthGuard)
   async createPost(@Request() req, @Body() body: { title: string; content: string; imageUrl?: string; categoryId: number }) {
-    // Sadece teacher yazı yazabilir
+  
     if (req.user.role !== 'teacher') {
       throw new HttpException('Only teachers can create posts', HttpStatus.FORBIDDEN);
     }
@@ -61,7 +61,7 @@ export class PostController {
     };
   }
 
-  // Yazıyı güncelle (sadece yazarı)
+
   @Put(':id')
   @UseGuards(JwtAuthGuard)
   async updatePost(@Request() req, @Param('id') id: number, @Body() body: { title?: string; content?: string; imageUrl?: string; categoryId?: number }) {
@@ -71,7 +71,7 @@ export class PostController {
       throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
     }
 
-    // Sadece yazarı güncelleyebilir
+
     if (post.authorId !== req.user.id) {
       throw new HttpException('You can only update your own posts', HttpStatus.FORBIDDEN);
     }
@@ -90,7 +90,7 @@ export class PostController {
     };
   }
 
-  // Yazıyı sil (sadece yazarı)
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async deletePost(@Request() req, @Param('id') id: number) {
@@ -100,7 +100,7 @@ export class PostController {
       throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
     }
 
-    // Sadece yazarı silebilir
+
     if (post.authorId !== req.user.id) {
       throw new HttpException('You can only delete your own posts', HttpStatus.FORBIDDEN);
     }
@@ -112,7 +112,7 @@ export class PostController {
     };
   }
 
-  // Yazıyı beğen
+
   @Post(':id/like')
   @UseGuards(JwtAuthGuard)
   async likePost(@Param('id') id: number) {
